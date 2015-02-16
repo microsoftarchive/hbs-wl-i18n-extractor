@@ -1,6 +1,6 @@
 {
   "name": "hbs-wl-i18n-extractor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "glob": "3.2.11",
     "handlebars": "2.0.0"
