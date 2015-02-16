@@ -12,6 +12,14 @@ module.exports = function (grunt) {
   var lineParsingRegExp = /^\s*\"([a-zA-Z0-9_\-\$]+)\"\s*=\s*\"(.*)\";\s*$/;
   var keys = [];
 
+  var noop = Function.prototype;
+
+  function Override () {
+    var options = [].pop.call(arguments);
+    options.inverse(this);
+    options.fn(this);
+  }
+
   function makeLanguageJSONFile (languageData) {
 
     var json = {};
@@ -47,18 +55,10 @@ module.exports = function (grunt) {
 
   function overrideHelpers () {
 
-    var noop = Function.prototype;
-
     function localized (key) {
       if (keys.indexOf(key) === -1) {
         keys.push(key);
       }
-    }
-
-    function Override () {
-      var options = [].pop.call(arguments);
-      options.inverse(this);
-      options.fn(this);
     }
 
     handlebars.registerHelper('localized', localized);
@@ -70,6 +70,10 @@ module.exports = function (grunt) {
     handlebars.registerHelper('equal', Override);
     handlebars.registerHelper('icon', noop);
     handlebars.registerHelper('resolve', noop);
+    handlebars.registerHelper('format', noop);
+    handlebars.registerHelper('escapeURI', noop);
+    handlebars.registerHelper('fromNow', noop);
+    handlebars.registerHelper('script', noop);
   }
 
   function findUsedLocalizationKeys (options) {
