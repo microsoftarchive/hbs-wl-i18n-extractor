@@ -13,7 +13,7 @@
   "laxcomma": false,
   "maxcomplexity": 6,
   "maxlen": 80,
-  "maxstatements": 15,
+  "maxstatements": 16,
   "newcap": true,
   "node": true,
   "noyield": true,

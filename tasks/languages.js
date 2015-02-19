@@ -125,20 +125,28 @@ module.exports = function (grunt) {
     });
   }
 
+  function BuildLanguageJSON () {
+    var options = this.options({
+      'templatesSrcDir': 'app/views',
+      'langSrcFileName': 'Localizable.strings',
+      'langSrcDir': 'app/assets/languages/strings',
+      'langDestDir': 'app/assets/build/strings'
+    });
+
+    grunt.file.mkdir(options.langDestDir);
+    findUsedLocalizationKeys(options);
+    makeLanguageFiles(options);
+  }
+
   grunt.registerTask(
     'compile/languages',
     'Compiles relevant language keys',
-    function BuildLanguageJSON () {
-      var options = this.options({
-        'templatesSrcDir': 'app/views',
-        'langSrcFileName': 'Localizable.strings',
-        'langSrcDir': 'app/assets/languages/strings',
-        'langDestDir': 'app/assets/build/strings'
-      });
+    BuildLanguageJSON
+  );
 
-      grunt.file.mkdir(options.langDestDir);
-      findUsedLocalizationKeys(options);
-      makeLanguageFiles(options);
-    }
+  grunt.registerTask(
+    'compile/lang',
+    'Compiles relevant language keys',
+    BuildLanguageJSON
   );
 };
