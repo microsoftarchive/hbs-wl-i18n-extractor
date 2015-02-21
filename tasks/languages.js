@@ -68,12 +68,7 @@ module.exports = function (grunt) {
     handlebars.registerHelper('unless', Override);
     handlebars.registerHelper('each', Override);
     handlebars.registerHelper('equal', Override);
-    handlebars.registerHelper('icon', noop);
-    handlebars.registerHelper('resolve', noop);
-    handlebars.registerHelper('format', noop);
-    handlebars.registerHelper('escapeURI', noop);
-    handlebars.registerHelper('fromNow', noop);
-    handlebars.registerHelper('script', noop);
+    handlebars.helpers.helperMissing = noop;
   }
 
   function findUsedLocalizationKeys (options) {
