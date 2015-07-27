@@ -57,8 +57,9 @@ module.exports = function (grunt) {
   function overrideHelpers () {
 
     function localized (key) {
-      if (keys.indexOf(key) === -1) {
+      if (key && keys.indexOf(key) === -1) {
         keys.push(key);
+        grunt.log.debug('found', key);
       }
 
       var data = slice.call(arguments, 1);
@@ -104,8 +105,6 @@ module.exports = function (grunt) {
 
     var explicit = grunt.file.read('config/labels.txt');
     keys = keys.concat(explicit.split('\n'));
-
-    grunt.log.debug('found', keys);
   }
 
   function makeLanguageFiles (options) {
