@@ -13,6 +13,7 @@ module.exports = function (grunt) {
   var keys = [];
 
   var noop = Function.prototype;
+  var slice = Array.prototype.slice;
 
   function Override () {
     var options = [].pop.call(arguments);
@@ -59,6 +60,14 @@ module.exports = function (grunt) {
       if (keys.indexOf(key) === -1) {
         keys.push(key);
       }
+
+      var data = slice.call(arguments, 1);
+      data.forEach(function (argument, index) {
+        if (toString.call(argument) == '[object String]' &&
+            argument.indexOf('{{') > -1) {
+          data[index] = handlebars.compile(argument)();
+        }
+      });
     }
 
     handlebars.registerHelper('localized', localized);
